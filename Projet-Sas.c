@@ -10,6 +10,7 @@
         char departement[20];
         float noteGeneral;
 
+
     }etudiant;
     etudiant etudiants_List[50];
 
