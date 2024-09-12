@@ -13,15 +13,15 @@
     }etudiant;
     etudiant etudiants_List[50];
 
-    int countEtudiat=-1;
+    int countEtudiat=0;
     char departementChoix[20];
     int existeName;
 
-        int math=0;
-        int physique=0;
-        int chimique=0;
-        int francais=0;
-        int anglais=0;
+        float math=0;
+        float physique=0;
+        float chimique=0;
+        float francais=0;
+        float anglais=0;
 
 
     /*---------------------------------------------------Fonction Menu---------------------------------------------------*/
@@ -43,7 +43,7 @@
          printf("choisi un nombre:");
          scanf("%s",&choix);
          clearConsole();
-        if(choix[0]>=48&&choix[0]<=57){
+        if(choix[0]>=48&&choix[0]<=55){
 
             N=choix[0]-'0';
 
@@ -89,7 +89,6 @@
 
     /*---------------------------------------------------Fonction D'ajoute---------------------------------------------------*/
     void ajoutEtudiant(){
-        countEtudiat++;
         printf("saisir le numero unique d'etudiant:");
         scanf("%s",&etudiants_List[countEtudiat].id);
         printf("saisir le nom d'etudiant:");
@@ -102,6 +101,7 @@
         strcpy(etudiants_List[countEtudiat].departement,departementChoix);
         printf("saisir la note general d'etudiant:");
         scanf("%f",&etudiants_List[countEtudiat].noteGeneral);
+        countEtudiat++;
     }
 
 
@@ -109,7 +109,7 @@
     void departementSwitchPrincipale(){
 
          int choix;
-         printf("---------------------------Departement Choix---------------------------\n");
+         printf("-Departement Choix-\n");
          printf("1.Math :\n");
          printf("2.physique :\n");
          printf("3.chimique :\n");
@@ -152,7 +152,7 @@
             printf("saisir le Prenom:");
             scanf("%s",&Prenom);
             existeName=-1;
-                for(int i=0;i<=countEtudiat;i++){
+                for(int i=0;i<countEtudiat;i++){
                     if(!strcmp(Nom,etudiants_List[i].nom)&&!strcmp(Prenom,etudiants_List[i].prenom)){
                     existeName=i;
                     break;
@@ -275,7 +275,7 @@
     void supprimertudiant(){
          checkEtudiant();
           if(existeName>=0){
-              for(int i=existeName;i<=countEtudiat;i++){
+              for(int i=existeName;i<countEtudiat;i++){
                     strcpy(etudiants_List[i].id,etudiants_List[i+1].id);
                     strcpy(etudiants_List[i].nom,etudiants_List[i+1].nom);
                     strcpy(etudiants_List[i].prenom,etudiants_List[i+1].prenom);
@@ -292,15 +292,15 @@
 
     /*---------------------------------------------------Fonction Afficher tous les etudiant---------------------------------------------------*/
     void affichageEtudiants(){
-       if(countEtudiat>=0){
-            for(int i=0;i<=countEtudiat;i++){
-
-                printf("Le nombre unique:%d",etudiants_List[i].id);
-                printf("Le nom :%s",etudiants_List[i].nom);
-                printf("Le prenom :%s",etudiants_List[i].prenom);
-                printf("La date de naissance:%s",etudiants_List[i].date_Naissance);
-                printf("Le departement:%s",etudiants_List[i].departement);
-                printf("Le la note generale:%.2f",etudiants_List[i].noteGeneral);
+       if(countEtudiat>0){
+            for(int i=0;i<countEtudiat;i++){
+                printf("==Etudiant numero : %d==\n",i);
+                printf("Le nombre unique:%s\n",etudiants_List[i].id);
+                printf("Le nom :%s\n",etudiants_List[i].nom);
+                printf("Le prenom :%s\n",etudiants_List[i].prenom);
+                printf("La date de naissance:%s\n",etudiants_List[i].date_Naissance);
+                printf("Le departement:%s\n",etudiants_List[i].departement);
+                printf("Le la note generale:%.2f\n",etudiants_List[i].noteGeneral);
 
             }
 
@@ -323,7 +323,7 @@
         for(int i=0;i<countEtudiat;i++){
             moyenneUnevirsite+=etudiants_List[i].noteGeneral;
         }
-            printf("le moyenne generale de de l'universite est:%.2f",moyenneUnevirsite/countEtudiat);
+            printf("le moyenne generale de de l'universite est:%.2f\n",moyenneUnevirsite/countEtudiat);
     }
 
     /*---------------------------------------------------Fonction moyenne de chaque departement ---------------------------------------------------*/
@@ -346,11 +346,11 @@
                     totalAnglais+=etudiants_List[i].noteGeneral;
                 }
             }
-                printf("Le moyenne total de Math%.2f",totalMath/math);
-                printf("Le moyenne total de physique%.2f",totalPhysique/physique);
-                printf("Le moyenne total de chimic%.2f",totalChimic/chimique);
-                printf("Le moyenne total de francais%.2f",totalFrancais/francais);
-                printf("Le moyenne total de anglais%.2f",totalAnglais/anglais);
+                printf("Le moyenne total de Math %.2f\n",totalMath/math);
+                printf("Le moyenne total de physique %.2f\n",totalPhysique/physique);
+                printf("Le moyenne total de chimic %.2f\n",totalChimic/chimique);
+                printf("Le moyenne total de francais %.2f\n",totalFrancais/francais);
+                printf("Le moyenne total de anglais %.2f\n",totalAnglais/anglais);
 
     }
 
@@ -418,7 +418,7 @@
     /*---------------------------------------------------Fonction Affichage Nombre Total---------------------------------------------------*/
 
     void afficheNombreTotal(){
-        printf("le nombre total des etudiants est:%d",countEtudiat+1);
+        printf("le nombre total des etudiants est:%d",countEtudiat);
     }
 
     /*---------------------------------------------------Fonction Affichage Nombre Total dans chaque departement---------------------------------------------------*/
@@ -437,14 +437,14 @@
        float seuil=0;
        printf("saisir le seuil:");
        scanf("%f",&seuil);
-           for(int i=0;i<=countEtudiat;i++){
+           for(int i=0;i<countEtudiat;i++){
                 if(etudiants_List[i].noteGeneral>=seuil){
-                    printf("Le nombre unique:%d",etudiants_List[i].id);
-                    printf("Le nom :%s",etudiants_List[i].nom);
-                    printf("Le prenom :%s",etudiants_List[i].prenom);
-                    printf("La date de naissance:%s",etudiants_List[i].date_Naissance);
-                    printf("Le departement:%s",etudiants_List[i].departement);
-                    printf("Le la note generale:%.2f",etudiants_List[i].noteGeneral);
+                    printf("Le nombre unique:%s\n",etudiants_List[i].id);
+                    printf("Le nom :%s\n",etudiants_List[i].nom);
+                    printf("Le prenom :%s\n",etudiants_List[i].prenom);
+                    printf("La date de naissance:%s\n",etudiants_List[i].date_Naissance);
+                    printf("Le departement:%s\n",etudiants_List[i].departement);
+                    printf("Le la note generale:%.2f\n",etudiants_List[i].noteGeneral);
                 }
 
             }
@@ -468,12 +468,12 @@
           for(int i;i<3;i++){
             for(int j=0;j<countEtudiat;j++){
                 if(tableauTri[i]==etudiants_List[j].noteGeneral){
-                    printf("Le nombre unique:%d",etudiants_List[j].id);
-                    printf("Le nom :%s",etudiants_List[j].nom);
-                    printf("Le prenom :%s",etudiants_List[j].prenom);
-                    printf("La date de naissance:%s",etudiants_List[j].date_Naissance);
-                    printf("Le departement:%s",etudiants_List[j].departement);
-                    printf("Le la note generale:%.2f",etudiants_List[j].noteGeneral);
+                    printf("Le nombre unique:%s\n",etudiants_List[j].id);
+                    printf("Le nom :%s\n",etudiants_List[j].nom);
+                    printf("Le prenom :%s\n",etudiants_List[j].prenom);
+                    printf("La date de naissance:%s\n",etudiants_List[j].date_Naissance);
+                    printf("Le departement:%s\n",etudiants_List[j].departement);
+                    printf("Le la note generale:%.2f\n",etudiants_List[j].noteGeneral);
                 }
             }
           }
@@ -486,14 +486,14 @@
     void afficheEtudiantsReussi_Departement(){
 
         departementSwitchSecondaire();
-      for(int i=0;i<=countEtudiat;i++){
+      for(int i=0;i<countEtudiat;i++){
             if(!strcmp(etudiants_List[i].departement,departementChoix )&& etudiants_List[i].noteGeneral>=10){
-                printf("Le nombre unique:%d",etudiants_List[i].id);
-                printf("Le nom :%s",etudiants_List[i].nom);
-                printf("Le prenom :%s",etudiants_List[i].prenom);
-                printf("La date de naissance:%s",etudiants_List[i].date_Naissance);
-                printf("Le departement:%s",etudiants_List[i].departement);
-                printf("Le la note generale:%.2f",etudiants_List[i].noteGeneral);
+                printf("Le nombre unique:%s\n",etudiants_List[i].id);
+                printf("Le nom :%s\n",etudiants_List[i].nom);
+                printf("Le prenom :%s\n",etudiants_List[i].prenom);
+                printf("La date de naissance:%s\n",etudiants_List[i].date_Naissance);
+                printf("Le departement:%s\n",etudiants_List[i].departement);
+                printf("Le la note generale:%.2f\n",etudiants_List[i].noteGeneral);
             }
        }
     }
@@ -524,26 +524,26 @@
     /*---------------------------------------------------Fonction recherche etudiant ---------------------------------------------------*/
     void AfficherEtudiant(){
             checkEtudiant();
-            printf("Le nombre unique:%d",etudiants_List[existeName].id);
-            printf("Le nom :%s",etudiants_List[existeName].nom);
-            printf("Le prenom :%s",etudiants_List[existeName].prenom);
-            printf("La date de naissance:%s",etudiants_List[existeName].date_Naissance);
-            printf("Le departement:%s",etudiants_List[existeName].departement);
-            printf("Le la note generale:%.2f",etudiants_List[existeName].noteGeneral);
+            printf("Le nombre unique:%s\n",etudiants_List[existeName].id);
+            printf("Le nom :%s\n",etudiants_List[existeName].nom);
+            printf("Le prenom :%s\n",etudiants_List[existeName].prenom);
+            printf("La date de naissance:%s\n",etudiants_List[existeName].date_Naissance);
+            printf("Le departement:%s\n",etudiants_List[existeName].departement);
+            printf("Le la note generale:%.2f\n",etudiants_List[existeName].noteGeneral);
     }
 
     /*---------------------------------------------------Fonction recherche les etudiants d'un departement ---------------------------------------------------*/
     void AfficherEtudiant_chaque_departement(){
       departementSwitchSecondaire();
 
-           for(int i=0;i<=countEtudiat;i++){
+           for(int i=0;i<countEtudiat;i++){
                 if(!strcmp(etudiants_List[i].departement,departementChoix)){
-                    printf("Le nombre unique:%d",etudiants_List[i].id);
-                    printf("Le nom :%s",etudiants_List[i].nom);
-                    printf("Le prenom :%s",etudiants_List[i].prenom);
-                    printf("La date de naissance:%s",etudiants_List[i].date_Naissance);
-                    printf("Le departement:%s",etudiants_List[i].departement);
-                    printf("Le la note generale:%.2f",etudiants_List[i].noteGeneral);
+                    printf("Le nombre unique:%s\n",etudiants_List[i].id);
+                    printf("Le nom :%s\n",etudiants_List[i].nom);
+                    printf("Le prenom :%s\n",etudiants_List[i].prenom);
+                    printf("La date de naissance:%s\n",etudiants_List[i].date_Naissance);
+                    printf("Le departement:%s\n",etudiants_List[i].departement);
+                    printf("Le la note generale:%.2f\n",etudiants_List[i].noteGeneral);
                 }
            }
         }
